@@ -28,11 +28,19 @@ class Vampire:
             if not curr_vamp.drank_blood_today or not curr_vamp.in_coffin:
                 Vampire.coven.remove(curr_vamp)
 
+    @classmethod
+    def sunset(cls):
+        for num in range(0,len(Vampire.coven)):
+            curr_vamp = Vampire.coven[num]
+            curr_vamp.in_coffin = False
+            curr_vamp.drank_blood_today = False
+
 
 vlad = Vampire.create("Vlad",'243',True,True)
 print(Vampire.coven)
 Vampire.sunrise()
 print(Vampire.coven)
-vlad.in_coffin = False
+# vlad.in_coffin = False
+Vampire.sunset()
 Vampire.sunrise()
 print(Vampire.coven)
