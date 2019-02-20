@@ -17,3 +17,6 @@ class Vampire:
         new_vamp = Vampire(name,age,in_coffin,drank_blood_today)
         Vampire.coven.append(new_vamp)
         return new_vamp
+
+    def drink_blood(self):
+        self.drank_blood_today = True
