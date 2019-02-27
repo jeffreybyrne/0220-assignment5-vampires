@@ -1,13 +1,20 @@
-class Vampire:
+from peewee import SqliteDatabase, Model, CharField, IntegerField, BooleanField
+
+db = SqliteDatabase('vampires.sqlite3')
+
+
+class Vampire(Model):
+    name = CharField()
+    age = IntegerField()
+    in_coffin = BooleanField()
+    drank_blood_today = BooleanField()
+
     """Represents a coven of vampires
     """
     coven = []
 
-    def __init__(self, name, age, in_coffin, drank_blood_today):
-        self.name = name
-        self.age = age
-        self.in_coffin = in_coffin
-        self.drank_blood_today = drank_blood_today
+    class Meta:
+        database = db
 
     @classmethod
     def create(cls, name, age, in_coffin, drank_blood_today):
