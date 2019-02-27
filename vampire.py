@@ -59,10 +59,12 @@ class Vampire(Model):
 
 db.connect()
 db.create_tables([Vampire])
-vlad = Vampire.create(name='Vlad', age=243, in_coffin=False, drank_blood_today=False)
-vlad.list_all_vampires()
+vlad = Vampire()
+# ******************************
+# vlad.create(name='Vlad', age=243, in_coffin=False, drank_blood_today=False)
 # delete from vampire where name = 'Vlad';
-
+# ******************************
+vlad.list_all_vampires()
 
 # print(Vampire.coven)  # Just Vlad
 # Vampire.sunrise()  # no change
