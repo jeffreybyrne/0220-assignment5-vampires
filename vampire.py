@@ -11,19 +11,10 @@ class Vampire(Model):
 
     """Represents a coven of vampires
     """
-    coven = []
+    # coven = []
 
     class Meta:
         database = db
-
-    @classmethod
-    def create(cls, name, age, in_coffin, drank_blood_today):
-        """Creates a new vampire instance and adds it to the list of vampires
-        in the coven
-        """
-        new_vamp = Vampire(name, age, in_coffin, drank_blood_today)
-        Vampire.coven.append(new_vamp)
-        return new_vamp
 
     def drink_blood(self):
         # Set the instantiated vampire's blood drinking boolean to true
@@ -54,18 +45,27 @@ class Vampire(Model):
         self.in_coffin = True
 
 
-vlad = Vampire.create("Vlad", '243', True, True)
-print(Vampire.coven)  # Just Vlad
-Vampire.sunrise()  # no change
-print(Vampire.coven)  # Still just Vlad
-Vampire.sunset()  # no change
-# kill off any vampire who isn't in their coffin and hasn't had blood today
-Vampire.sunrise()
-print(Vampire.coven)  # oh crap, Vlad's dead!
-vlad = Vampire.create("Vlad", '243', True, True)  # let's create a new Vlad
-print(Vampire.coven)  # just Vlad again
-Vampire.sunset()  # let's send him out again
-vlad.drink_blood()  # he's had some blood
-vlad.go_home()  # let's send him home as well
-Vampire.sunrise()  # and see what happened...
-print(Vampire.coven)  # Vlad's still alive, yay!
+db.connect()
+db.create_tables([Vampire])
+newname = 'Vlad'
+# Contact.create(first_name=new_first_name, last_name=new_last_name, email=new_email, note=new_note)
+vlad = Vampire.create(name=newname, age=243, in_coffin=False, drank_blood_today=False)
+vlad.save()
+
+# vlad.save()
+#
+#
+# print(Vampire.coven)  # Just Vlad
+# Vampire.sunrise()  # no change
+# print(Vampire.coven)  # Still just Vlad
+# Vampire.sunset()  # no change
+# # kill off any vampire who isn't in their coffin and hasn't had blood today
+# Vampire.sunrise()
+# print(Vampire.coven)  # oh crap, Vlad's dead!
+# vlad = Vampire.create("Vlad", '243', True, True)  # let's create a new Vlad
+# print(Vampire.coven)  # just Vlad again
+# Vampire.sunset()  # let's send him out again
+# vlad.drink_blood()  # he's had some blood
+# vlad.go_home()  # let's send him home as well
+# Vampire.sunrise()  # and see what happened...
+# print(Vampire.coven)  # Vlad's still alive, yay!
