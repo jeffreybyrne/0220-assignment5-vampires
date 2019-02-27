@@ -16,6 +16,18 @@ class Vampire(Model):
     class Meta:
         database = db
 
+    def list_all_vampires(self):
+        for vamp in Vampire.select():
+            if vamp.drank_blood_today:
+                blood_string = ''
+            elif vamp.drank_blood_today is False:
+                blood_string = 'not '
+            if vamp.in_coffin:
+                coffin_string = ''
+            elif vamp.in_coffin is False:
+                coffin_string = 'not '
+            print("This vampire is {} years old and their name is {}. They have {}drank blood today, and is {}in their coffin.".format(vamp.age, vamp.name, blood_string, coffin_string))
+
     def drink_blood(self):
         # Set the instantiated vampire's blood drinking boolean to true
         self.drank_blood_today = True
@@ -47,14 +59,11 @@ class Vampire(Model):
 
 db.connect()
 db.create_tables([Vampire])
-newname = 'Vlad'
-# Contact.create(first_name=new_first_name, last_name=new_last_name, email=new_email, note=new_note)
-vlad = Vampire.create(name=newname, age=243, in_coffin=False, drank_blood_today=False)
-vlad.save()
+vlad = Vampire.create(name='Vlad', age=243, in_coffin=False, drank_blood_today=False)
+vlad.list_all_vampires()
+# delete from vampire where name = 'Vlad';
 
-# vlad.save()
-#
-#
+
 # print(Vampire.coven)  # Just Vlad
 # Vampire.sunrise()  # no change
 # print(Vampire.coven)  # Still just Vlad
